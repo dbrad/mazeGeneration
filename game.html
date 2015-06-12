@@ -1,0 +1,46 @@
+<html>
+  <head>
+    <title></title>
+    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="js/lib/underscore-min.js"></script>
+    <script src="js/lib/easeljs-0.8.0.combined.js" charset="utf-8"></script>
+
+    <script src="js/game.js" charset="utf-8"></script>
+    <script src="js/profiler.js" charset="utf-8"></script>
+    <script src="js/square.js" charset="utf-8"></script>
+    <script src="js/maze.js" charset="utf-8"></script>
+    <script type="text/javascript">
+      var DELTA_CONST = 3.0;
+      $(function(){
+          Game.init();
+          var busy = false;
+          var delta = 0.0;
+          setInterval(function(){
+            delta += DELTA_CONST;
+            if(!busy) {
+              busy = true;
+              Game.update(delta);
+              Game.render(delta);
+              delta -= DELTA_CONST;
+              busy = false;
+            }
+          }, DELTA_CONST);
+          $('#btnNewMaze').click(function() {
+            Game.Entities[1].init();
+          });
+      });
+
+    </script>
+    <style media="screen">
+      body, html {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="output"></div>
+    <canvas id="screen" width="800" height="600"></canvas>
+    <br>
+    <input type="button" id="btnNewMaze" value="New Maze"/>
+  </body>
+</html>
